@@ -1,8 +1,4 @@
-# Algorithm Analysis and Math Review
-
-This Markdown note is a cleaned and structured version of the handwritten lecture notes. It focuses on time complexity, asymptotic notation, common loop patterns, best/worst/average case analysis, and recurrence relations.
-
----
+# Algorithm Analysis 
 
 ## 1. What Is Time Complexity?
 
