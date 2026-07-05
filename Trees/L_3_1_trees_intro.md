@@ -1,13 +1,10 @@
-# Lecture 03: Trees Introduction
-
-> Adapted from materials from Drs. Bobeldyk and Rafiq.  
-> Original slide image credit: Markus Krisetya on Unsplash.
+# Lecture 3.1: Introduction to Trees
 
 ## Table of Contents
 
 - [Graphs](#graphs)
 - [Trees](#trees)
-- [Tree Terminology](#tree-terminology)
+    - [Tree Terminology](#tree-terminology)
 - [How Trees Are Stored](#how-trees-are-stored)
 - [Binary Trees](#binary-trees)
 - [Binary Search Trees](#binary-search-trees)
@@ -23,25 +20,42 @@
 A **graph** is a mathematical structure made up of:
 
 - **Vertices**, also called **nodes**
+    - Usually stores data.
+    - In the Examples: A, B, C, D, E. 
 - **Edges**, which connect nodes
+    - Always connect two nodes.
+    - Can store data.
+    - In the Examples: solid lines between each nodes.
+    - Can be **directed** or **undirected**.
 
-Nodes usually store data. In this lecture, assume each node has at least a **key**.
-
-Edges:
-
-- Always connect two nodes
-- Can store data
-- Can be **directed** or **undirected**
-
-Example graph:
+**Example 1.1: Undirected Graph:**
+- Edges do not have a specific direction
+- Bidirectional (two-way street)
+- Can go from A to B, and from B to A
+- Example: Friends on social media. 
 
 ```mermaid
 graph LR
     A((A)) --- B((B))
-    A --- C((C))
+    B --- C((C))
     B --- D((D))
     C --- E((E))
     D --- E
+```
+
+**Example 1.2: Directed Graph:**
+- Edges have a specific direction
+- Uni-directional (one-way street)
+- Can go from A to B (`A -> B`), but not from B to A
+- Example: Following someone on social media.
+
+```mermaid
+graph LR
+    A((A)) ---> B((B))
+    B ---> C((C))
+    B ---> D((D))
+    C ---> E((E))
+    D ---> E
 ```
 
 Graphs can represent many real-world relationships, such as:
@@ -57,21 +71,32 @@ Graphs can represent many real-world relationships, such as:
 
 A **tree** is a special type of graph.
 
-### Requirements
+Requirements for a Tree:
+- **No cycles** (cannot loop back to the same node).
+- Exactly **one path** between any two given nodes.
 
-A tree has:
+**Example 2.1: Graph with Cycle:**
 
-- **No cycles**
-- Exactly **one path** between any two given nodes
+```mermaid
+graph LR
+    A((A)) --> B((B))
+    B --> C((C))
+    C --> A
+    C --> D((D))
+    D --> E((E))
+    E --> F((F))
+    D --> F
+```
 
-### Common Additions
+This graph violates both requirements:
+    1. It has a cycle: `A → B → C → A`.
+    2. It has more than one path between nodes D and F:
+    ```
+    D → F
+    D → E → F
+    ```
 
-Trees often also have:
-
-- A **parent-child** structure
-- A **root**, meaning the whole tree descends from one root node
-
-Example rooted tree:
+**Example 2.2: Graph without Cycle (Rooted Tree):**
 
 ```mermaid
 graph TD
@@ -82,17 +107,39 @@ graph TD
     C --> F((F))
 ```
 
-Trees can represent:
+### Exercise 2.1
+Which of the followings are Trees?
 
+
+### Exercise 2.2
+Which of the following examples are generally not best represented as a tree? Explain why.
 - Dialogue options in a game
 - Rooms of a building
 - Genealogy or phylogeny
 - Social networks
 - File systems and hierarchies
 
+<details>
+<summary> Click to show answer</summary>
+    
+- Dialogue options in a game ✅
+- ~~Rooms of a building~~
+- Genealogy or phylogeny ✅
+- ~~Social networks~~
+- File systems and hierarchies ✅
+
+Why?
+- Rooms in a building: You might reach the same room through different hallways or doors.
+- Social networks : Friendships or relationships can form cycles, and there may be many different paths (social groups) between two people.
+</details>
+
+Trees often have:
+- A **root**, meaning the whole tree descends from one root node.
+- A **parent-child** structure.
+
 ---
 
-## Tree Terminology
+## Common Tree Terminology
 
 Using this tree:
 
@@ -109,7 +156,7 @@ graph TD
 
 The **root** is the starting node of the tree.
 
-In the example, `A` is the root.
+> `A` is the root.
 
 ### Parent and Child
 
@@ -117,42 +164,45 @@ A **parent** is a node directly above another node.
 
 A **child** is a node directly below another node.
 
-Example:
+> `A` is the parent of `B` and `C` $\approx$ `B` and `C` are children of `A`
 
-- `A` is the parent of `B` and `C`
-- `B` and `C` are children of `A`
+> `B` is the parent of `D` and `E` $\approx$ `D` and `E` are children of `B`
+
+> `C` is the parent of `F` $\approx$ `F` is the child of `F`
 
 ### Siblings
 
 Nodes with the same parent are **siblings**.
 
-Example:
+> `B` and `C` are siblings because both have parent `A`
 
-- `B` and `C` are siblings because both have parent `A`
+> `D` and `E` are siblings because both have parent `B`
 
 ### Leaf Nodes
 
 A **leaf node** is a node with no children.
 
-In the example, `D`, `E`, and `F` are leaf nodes.
+> `D`, `E`, and `F` are leaf nodes.
 
 ### Subtree
 
 A **subtree** is a node and all of its descendants.
 
-Example:
-
-- `B` and all descendants of `B` form the left subtree of `A`
+```mermaid
+graph TD
+    B((B)) --> D((D))
+    B --> E((E))
+```
 
 ### Depth
 
 The **depth** of a node is the number of edges between that node and the root.
 
-Example:
+> Depth of `A` = `0`
 
-- Depth of `A` is `0`
-- Depth of `B` is `1`
-- Depth of `D` is `2`
+> Depth of `B` and `C` = `1`
+
+> Depth of `D`, `E`, and `F` = `2`
 
 ### Height
 
@@ -160,6 +210,13 @@ The **height** of a node is the maximum number of edges between that node and on
 
 The **height of the tree** is the height of the root.
 
+> Height of `A` = `2`
+
+> Height of `B` and `C` = `1`
+
+> Height of `D`, `E`, and `F` = `0`
+
+> Height of the tree = `2`
 ---
 
 ## How Trees Are Stored
@@ -203,17 +260,6 @@ class TreeNode:
         self.children = []
 ```
 
-Binary tree node:
-
-```python
-class BinaryTreeNode:
-    def __init__(self, key, value=None):
-        self.key = key
-        self.value = value
-        self.left = None
-        self.right = None
-```
-
 ---
 
 ## Binary Trees
@@ -246,15 +292,13 @@ If a binary tree has no ordering rule, searching it can take:
 O(n)
 ```
 
-In the worst case, we may need to check every node.
+In the worst case, we may need to check every node. How can we do better?
 
 ---
 
-## Binary Search Trees
+## Binary Search Trees (BST)
 
 A **binary search tree**, or **BST**, is a binary tree with one extra ordering rule.
-
-### BST Property
 
 For any node `X`:
 
@@ -275,16 +319,16 @@ That also means every subtree must itself be a BST.
 
 ```mermaid
 graph TD
-    N5((5)) --> N4((4))
-    N5 --> N8((8))
-    N4 --> N2((2))
-    N8 --> N6((6))
-    N8 --> N9((9))
+    N5((A:5)) --> N4((B:4))
+    N5 --> N8((C:8))
+    N4 --> N2((D:2))
+    N8 --> N6((E:6))
+    N8 --> N9((F:9))
 ```
 
 This is a BST because:
 
-- Everything left of `5` is `<= 5`
+- Everything left of `A` (value = `5`) is `<= 5`
 - Everything right of `5` is `>= 5`
 - The same rule holds for every subtree
 
@@ -292,21 +336,19 @@ This is a BST because:
 
 ```mermaid
 graph TD
-    N5((5)) --> N4((4))
-    N5 --> N8((8))
-    N4 --> N2((2))
-    N4 --> N6((6))
-    N8 --> N9((9))
+    N5((A:5)) --> N4((B:4))
+    N5 --> N8((C:8))
+    N4 --> N2((D:2))
+    N4 --> N6((E:6))
+    N8 --> N9((F:9))
 ```
 
 This is **not** a BST because `6` is in the left subtree of `5`, but `6 > 5`.
 
-To fix it, move `6` into the right subtree of `5`, for example as the left child of `8`.
-
 ### A BST Can Be Unbalanced
 
 ```mermaid
-graph TD
+graph LR
     N5((5)) --> N6((6))
     N6 --> N7((7))
     N7 --> N8((8))
