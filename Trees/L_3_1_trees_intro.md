@@ -154,7 +154,7 @@ Trees often have:
 
 We will use the following tree to introduce common tree terminology:
 
-![Tree Terminology](Images/Tree_Term.png)
+<img src="Images/Tree_Term.png" alt="Tree Terminilogy" width="75%"/>
 
 ### Root
 
@@ -192,11 +192,7 @@ A **leaf node** is a node with no children.
 
 A **subtree** is a node and all of its descendants.
 
-```mermaid
-graph TD
-    B((B)) --> D((D))
-    B --> E((E))
-```
+<img src="Images/Subtree.png" alt="Subtrees" width="75%"/>
 
 ### Depth
 
@@ -221,6 +217,9 @@ The **height of the tree** is the height of the root.
 > Height of `D`, `E`, and `F` = `0`
 
 > Height of the tree = `2`
+
+<img src="Images/Tree_Term_final.png" alt="Tree Terminilogy" width="75%"/>
+
 ---
 
 ## How Trees Are Stored
