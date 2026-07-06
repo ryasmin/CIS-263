@@ -4,7 +4,7 @@
 
 - [Graphs](#graphs)
 - [Trees](#trees)
-    - [Tree Terminology](#tree-terminology)
+    - [Common Tree Terminology](#common-tree-terminology)
 - [How Trees Are Stored](#how-trees-are-stored)
 - [Binary Trees](#binary-trees)
 - [Binary Search Trees](#binary-search-trees)
@@ -107,9 +107,20 @@ graph TD
     C --> F((F))
 ```
 
-### Exercise 2.1
-Which of the followings are Trees?
+<br>
 
+### Exercise 2.1
+Which of the following are Trees?
+![Are These Trees?](Images/Are_Trees.png)
+
+<details>
+<summary> Click to show answer</summary>
+
+![Are These Trees?](Images/Are_Trees_Ans.png)
+
+</details>
+
+<br>
 
 ### Exercise 2.2
 Which of the following examples are generally not best represented as a tree? Explain why.
@@ -128,29 +139,22 @@ Which of the following examples are generally not best represented as a tree? Ex
 - ~~Social networks~~
 - File systems and hierarchies ✅
 
-Why?
+**Why?**
 - Rooms in a building: You might reach the same room through different hallways or doors.
 - Social networks : Friendships or relationships can form cycles, and there may be many different paths (social groups) between two people.
 </details>
-
-Trees often have:
-- A **root**, meaning the whole tree descends from one root node.
-- A **parent-child** structure.
 
 ---
 
 ## Common Tree Terminology
 
-Using this tree:
+Trees often have:
+- A **root**, meaning the whole tree descends from one root node.
+- A **parent-child** structure.
 
-```mermaid
-graph TD
-    A((A)) --> B((B))
-    A --> C((C))
-    B --> D((D))
-    B --> E((E))
-    C --> F((F))
-```
+We will use the following tree to introduce common tree terminology:
+
+![Tree Terminology](Images/Tree_Term.png)
 
 ### Root
 
